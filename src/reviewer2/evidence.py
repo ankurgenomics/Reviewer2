@@ -12,6 +12,7 @@ between:
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 from typing import Protocol
 
@@ -86,11 +87,20 @@ class LiveEvidenceProvider:
         return []
 
 
-def get_evidence_provider(name: str = "fixtures") -> EvidenceProvider:
-    """Factory used by the pipeline/CLI based on REVIEWER2_EVIDENCE_PROVIDER."""
-    if name == "live":
-        import os
+def get_evidence_provider(name: str | None = None) -> EvidenceProvider:
+    """Factory used by the pipeline, CLI, and MCP server.
 
+    ``REVIEWER2_EVIDENCE_PROVIDER`` is read here, once, when ``name`` isn't
+    given explicitly — not by each caller individually. Previously
+    ``mcp_server/server.py``'s ``get_evidence`` tool called this with no
+    argument (defaulting to the "fixtures" literal) while ``pipeline.py``
+    separately read the env var itself, so the MCP tool silently ignored
+    ``REVIEWER2_EVIDENCE_PROVIDER=live`` even after the extra was installed.
+    Centralising the env-var read here means every caller gets the same
+    provider choice automatically.
+    """
+    name = name or os.getenv("REVIEWER2_EVIDENCE_PROVIDER", "fixtures")
+    if name == "live":
         return LiveEvidenceProvider(
             ncbi_email=os.getenv("NCBI_EMAIL"),
             ncbi_api_key=os.getenv("NCBI_API_KEY"),

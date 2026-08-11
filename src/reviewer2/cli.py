@@ -113,7 +113,7 @@ def review(
     as_json: bool = typer.Option(False, "--json", help="Emit JSON dossier."),
 ) -> None:
     """Review a single variant."""
-    proposed_cls = ACMGClassification(proposed) if proposed else None
+    proposed_cls = ACMGClassification.parse(proposed) if proposed else None
     request = ReviewRequest(
         variant=Variant(chrom=chrom, pos=pos, ref=ref, alt=alt, gene=gene, hgvs_p=hgvs_p),
         proposed_classification=proposed_cls,

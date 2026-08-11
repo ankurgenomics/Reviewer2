@@ -162,6 +162,33 @@ class ACMGClassification(str, Enum):
     LIKELY_BENIGN = "Likely benign"
     BENIGN = "Benign"
 
+    @classmethod
+    def parse(cls, raw: str) -> ACMGClassification:
+        """Lenient constructor for free-form input (CLI flags, MCP tool args).
+
+        ``ACMGClassification(raw)`` only accepts the exact canonical string
+        (e.g. ``"Uncertain significance"``) and raises an unhelpful bare
+        ``ValueError`` on anything else — including the snake_case form
+        (``"uncertain_significance"``) that both the README's own quick-start
+        example and any MCP-calling agent would plausibly pass. This accepts
+        the canonical value plus case/spacing/underscore variants, and raises
+        a ValueError that lists the valid options when nothing matches.
+        """
+        try:
+            return cls(raw)
+        except ValueError:
+            pass
+        normalised = raw.strip().replace("_", " ").replace("-", " ").lower()
+        for member in cls:
+            if member.value.lower() == normalised:
+                return member
+        valid = ", ".join(f'"{m.value}"' for m in cls)
+        raise ValueError(
+            f"{raw!r} is not a valid ACMGClassification. Valid values: {valid} "
+            "(case, spacing, and underscores are ignored, e.g. "
+            "'likely_pathogenic' also matches)."
+        )
+
 
 # --------------------------------------------------------------------------- #
 # Conflicts (the "second reviewer disagrees" output)

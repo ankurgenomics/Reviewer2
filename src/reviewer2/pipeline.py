@@ -13,7 +13,6 @@ RAG, an NLI critic node, and a human-approval interrupt are deliberately deferre
 
 from __future__ import annotations
 
-import os
 from typing import TypedDict
 
 from langgraph.graph import END, StateGraph
@@ -119,9 +118,7 @@ def build_graph(
 
     Providers are injected so tests and the eval can run fully offline/deterministic.
     """
-    provider = evidence_provider or get_evidence_provider(
-        os.getenv("REVIEWER2_EVIDENCE_PROVIDER", "fixtures")
-    )
+    provider = evidence_provider or get_evidence_provider()
 
     graph = StateGraph(ReviewState)
     graph.add_node("normalise", _node_normalise)

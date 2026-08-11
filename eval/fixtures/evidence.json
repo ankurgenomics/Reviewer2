@@ -101,5 +101,152 @@
       },
       "source_last_updated": "2024-03-10"
     }
+  ],
+
+  "GRCh38-2-166044010-G-A": [
+    {
+      "source": "VEP",
+      "summary": "Stop-gained variant in SCN1A.",
+      "source_quote": "Consequence: stop_gained; p.Arg568Ter.",
+      "source_id": "VEP-SCN1A-166044010",
+      "data": { "consequence": "stop_gained" }
+    },
+    {
+      "source": "gnomAD",
+      "summary": "Absent from gnomAD (no observed alleles).",
+      "source_quote": "Global allele frequency: 0.0.",
+      "source_id": "gnomad-v4-2-166044010",
+      "data": { "allele_frequency": 0.0 }
+    },
+    {
+      "source": "ClinVar",
+      "summary": "ClinVar: Pathogenic, criteria provided, multiple submitters, no conflicts.",
+      "source_quote": "Germline classification: Pathogenic; Review status: criteria provided, multiple submitters, no conflicts (7 submitters).",
+      "source_id": "myvariant-chr2:g.166044010G>A",
+      "data": {
+        "clinvar_classification": "Pathogenic",
+        "review_status_conflicting": false,
+        "same_aa_change_pathogenic": false
+      }
+    }
+  ],
+
+  "GRCh38-19-1220650-G-T": [
+    {
+      "source": "VEP",
+      "summary": "Stop-gained variant in STK11.",
+      "source_quote": "Consequence: stop_gained; p.Glu223Ter.",
+      "source_id": "VEP-STK11-1220650",
+      "data": { "consequence": "stop_gained" }
+    },
+    {
+      "source": "gnomAD",
+      "summary": "Absent from gnomAD (no observed alleles).",
+      "source_quote": "Global allele frequency: 0.0.",
+      "source_id": "gnomad-v4-19-1220650",
+      "data": { "allele_frequency": 0.0 }
+    },
+    {
+      "source": "ClinVar",
+      "summary": "ClinVar: Likely pathogenic, no assertion criteria provided (1 submitter).",
+      "source_quote": "Germline classification: Likely pathogenic; Review status: no assertion criteria provided (1 submitter).",
+      "source_id": "myvariant-chr19:g.1220650G>T",
+      "data": {
+        "clinvar_classification": "Likely pathogenic",
+        "review_status_conflicting": false,
+        "same_aa_change_pathogenic": false
+      }
+    }
+  ],
+
+  "GRCh38-17-7674944-C-T": [
+    {
+      "source": "VEP",
+      "summary": "Missense variant in TP53.",
+      "source_quote": "Consequence: missense_variant; p.Arg196Gln.",
+      "source_id": "VEP-TP53-7674944",
+      "data": { "consequence": "missense_variant" }
+    },
+    {
+      "source": "gnomAD",
+      "summary": "Ultra-rare in gnomAD.",
+      "source_quote": "Global allele frequency: 6.57e-06.",
+      "source_id": "gnomad-v4-17-7674944",
+      "data": { "allele_frequency": 6.57073e-06 }
+    },
+    {
+      "source": "ClinVar",
+      "summary": "ClinVar: Uncertain significance, criteria provided, multiple submitters, no conflicts (8 submitters).",
+      "source_quote": "Germline classification: Uncertain significance; Review status: criteria provided, multiple submitters, no conflicts (8 submitters).",
+      "source_id": "myvariant-chr17:g.7674944C>T",
+      "data": {
+        "clinvar_classification": "Uncertain significance",
+        "review_status_conflicting": false,
+        "same_aa_change_pathogenic": false
+      }
+    }
+  ],
+
+  "GRCh38-16-23622972-C-T": [
+    {
+      "source": "VEP",
+      "summary": "Missense variant in PALB2.",
+      "source_quote": "Consequence: missense_variant; p.Gly998Glu.",
+      "source_id": "VEP-PALB2-23622972",
+      "data": { "consequence": "missense_variant" }
+    },
+    {
+      "source": "gnomAD",
+      "summary": "PALB2 p.Gly998Glu is uncommon (~1.7%).",
+      "source_quote": "Global allele frequency: 0.0171206.",
+      "source_id": "gnomad-v4-16-23622972",
+      "data": { "allele_frequency": 0.0171206 }
+    },
+    {
+      "source": "computational",
+      "summary": "REVEL ensemble score predicts tolerated (0.29).",
+      "source_quote": "REVEL score: 0.29.",
+      "source_id": "revel-16-23622972",
+      "data": { "ensemble_score": 0.29 }
+    },
+    {
+      "source": "ClinVar",
+      "summary": "ClinVar: mixed Benign/Benign-Likely-benign/Likely-benign submissions, conflicting interpretations across 10 submitters.",
+      "source_quote": "Germline classification: Benign, Benign/Likely benign, Likely benign, no classifications from unflagged records (10 submitters).",
+      "source_id": "myvariant-chr16:g.23622972C>T",
+      "data": {
+        "clinvar_classification": "Likely benign",
+        "review_status_conflicting": true,
+        "same_aa_change_pathogenic": false
+      }
+    }
+  ],
+
+  "GRCh38-13-32332592-A-C": [
+    {
+      "source": "VEP",
+      "summary": "Missense variant in BRCA2.",
+      "source_quote": "Consequence: missense_variant; p.Asn372His.",
+      "source_id": "VEP-BRCA2-32332592",
+      "data": { "consequence": "missense_variant" }
+    },
+    {
+      "source": "gnomAD",
+      "summary": "BRCA2 p.Asn372His is common (~23.8%); a well-known benign polymorphism.",
+      "source_quote": "Global allele frequency: 0.237922.",
+      "source_id": "gnomad-v4-13-32332592",
+      "data": { "allele_frequency": 0.237922 }
+    },
+    {
+      "source": "ClinVar",
+      "summary": "ClinVar: mixed Benign / Uncertain significance submissions, conflicting interpretations across 11 submitters (reviewed by expert panel).",
+      "source_quote": "Germline classification: Benign, Uncertain significance; Review status: reviewed by expert panel (11 submitters).",
+      "source_id": "myvariant-chr13:g.32332592A>C",
+      "data": {
+        "clinvar_classification": "Benign",
+        "review_status_conflicting": true,
+        "same_aa_change_pathogenic": false
+      }
+    }
   ]
 }

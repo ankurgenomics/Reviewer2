@@ -25,6 +25,55 @@ from reviewer2.evidence import get_evidence_provider
 from reviewer2.models import ACMGClassification, ReviewRequest, Variant
 from reviewer2.pipeline import review_variant
 
+# The two tool implementations are plain, top-level functions — not nested inside
+# ``_build_server()`` — so they're importable and unit-testable without the optional
+# 'mcp' extra installed. Only ``_build_server()``/``main()`` need FastMCP itself.
+
+
+def _get_evidence_impl(
+    chrom: str,
+    pos: int,
+    ref: str,
+    alt: str,
+    genome: str = "GRCh38",
+    gene: str | None = None,
+) -> str:
+    """Fetch gnomAD / ClinVar / VEP / in-silico evidence for a germline variant.
+
+    Returns a JSON list of evidence items, each with the literal source quote so
+    the calling agent can ground its own claims.
+    """
+    provider = get_evidence_provider()
+    variant = Variant(genome=genome, chrom=chrom, pos=pos, ref=ref, alt=alt, gene=gene)
+    evidence = provider.fetch(variant)
+    return json.dumps([json.loads(e.model_dump_json()) for e in evidence], indent=2)
+
+
+def _review_variant_impl(
+    chrom: str,
+    pos: int,
+    ref: str,
+    alt: str,
+    genome: str = "GRCh38",
+    gene: str | None = None,
+    proposed_classification: str | None = None,
+) -> str:
+    """Run the full Reviewer2 ACMG second-review and return an auditable dossier.
+
+    ``proposed_classification`` (optional) is audited against Reviewer2's
+    independent call; the dossier lists fired criteria, conflicts, and a
+    provenance hash.
+    """
+    proposed = (
+        ACMGClassification.parse(proposed_classification) if proposed_classification else None
+    )
+    request = ReviewRequest(
+        variant=Variant(genome=genome, chrom=chrom, pos=pos, ref=ref, alt=alt, gene=gene),
+        proposed_classification=proposed,
+    )
+    dossier = review_variant(request, llm_provider="none")
+    return dossier.model_dump_json(indent=2)
+
 
 def _build_server() -> Any:
     try:
@@ -50,10 +99,7 @@ def _build_server() -> Any:
         Returns a JSON list of evidence items, each with the literal source quote so
         the calling agent can ground its own claims.
         """
-        provider = get_evidence_provider()
-        variant = Variant(genome=genome, chrom=chrom, pos=pos, ref=ref, alt=alt, gene=gene)
-        evidence = provider.fetch(variant)
-        return json.dumps([json.loads(e.model_dump_json()) for e in evidence], indent=2)
+        return _get_evidence_impl(chrom, pos, ref, alt, genome, gene)
 
     @mcp.tool()
     def review_variant_tool(
@@ -71,15 +117,7 @@ def _build_server() -> Any:
         independent call; the dossier lists fired criteria, conflicts, and a
         provenance hash.
         """
-        proposed = (
-            ACMGClassification(proposed_classification) if proposed_classification else None
-        )
-        request = ReviewRequest(
-            variant=Variant(genome=genome, chrom=chrom, pos=pos, ref=ref, alt=alt, gene=gene),
-            proposed_classification=proposed,
-        )
-        dossier = review_variant(request, llm_provider="none")
-        return dossier.model_dump_json(indent=2)
+        return _review_variant_impl(chrom, pos, ref, alt, genome, gene, proposed_classification)
 
     return mcp
 
