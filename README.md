@@ -3,6 +3,7 @@
 <h1>Reviewer2</h1>
 
 <p><em>Named after the notorious anonymous peer reviewer who always finds the flaw.<br>In clinical genetics, missing one matters.</em></p>
+<img width="2752" height="1536" alt="Gemini_Generated_Image_ouqh0bouqh0bouqh" src="https://github.com/user-attachments/assets/d2579155-604c-45f4-acf4-e328d77a589a" />
 
 <p>
   <img src="https://github.com/ankurgenomics/Reviewer2/actions/workflows/ci.yml/badge.svg" alt="CI" />
